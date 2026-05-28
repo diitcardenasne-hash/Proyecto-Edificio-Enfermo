@@ -21,6 +21,7 @@ Para compilar los códigos .ino, es necesario instalar las siguientes librerías
 
 2. En el Servidor (Raspberry Pi)
 Es necesario tener instalado Mosquitto Broker y Python 3. Las dependencias de Python se instalan con:
+
         •pip3 install paho-mqtt mysql-connector-python
 
 3. Configuración de la Base de Datos
@@ -30,11 +31,16 @@ El sistema utiliza una base de datos llamada LIAC_CA con dos tablas principales:
         •Usuarios: Almacena usuario y password para el control de acceso.    
 
 📂 Estructura del Repositorio
+
     /Arduino: Códigos .ino para los Nodos 1 y 2.
+
     /Python: 
+
         •procesador_nodos.py: El "bridge" que recibe datos MQTT y los guarda en SQL.
         •consulta_usuarios.py: Interfaz de terminal para consulta de datos por roles.
+    
     /Config: Archivos de configuración del Broker Mosquitto.
+    
     /Diagramas: Esquemas de conexión y pines del circuito.
 
 
@@ -56,8 +62,11 @@ El acceso mediante la terminal está restringido por un sistema de autenticació
 
 
 📝 Instrucciones de Uso (SSH: sick_build) (cd progs)
+
 1.-Asegurarse de que el servicio de Mosquitto esté corriendo en la Raspberry Pi.
+
 2.-Ejecutar el script procesador para comenzar a recibir datos:
+
 python3 procesador_nodos.py
 
 3.-Para consultar la información, ejecutar el sistema de login:
