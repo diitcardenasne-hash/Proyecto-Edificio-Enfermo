@@ -1,0 +1,59 @@
+//CONSULTA DE USUARIOS
+import mysql.connector
+
+# Configuración de tu base de datos
+db_config = {
+    'host': 'localhost',
+    'user': 'Itzel04_user',
+    'password': '020404',
+    'database': 'LIAC_CA'
+}
+
+def login_sistema():
+    try:
+        # Establecer conexión
+        conexion = mysql.connector.connect(**db_config)
+        cursor = conexion.cursor()
+
+        print("\n================================")
+        print("   SISTEMA DE ACCESO TERMINAL   ")
+        print("================================")
+        
+        # Solicitar datos al usuario
+        user_input = input("👤 Usuario: ")
+        pass_input = input("🔑 Contraseña: ")
+
+        # Consulta corregida para la nueva estructura
+        query = "SELECT usuario FROM Usuarios WHERE usuario = %s AND password = %s"
+        cursor.execute(query, (user_input, pass_input))
+        
+        resultado = cursor.fetchone()
+
+        if resultado:
+            print("\n--------------------------------")
+            print(f"✅ ACCESO CONCEDIDO")
+            print(f"Bienvenido(a), {resultado[0]}")
+            print("--------------------------------")
+            
+            # Opcional: Mostrar un resumen rápido de la DB
+            cursor.execute("SELECT COUNT(*) FROM Datos")
+            total = cursor.fetchone()[0]
+            print(f"Estado del sistema: {total} lecturas capturadas.")
+            
+        else:
+            print("\n--------------------------------")
+            print("❌ ERROR: Credenciales inválidas.")
+            print("Inténtalo de nuevo.")
+            print("--------------------------------")
+
+        # Cerrar conexiones
+        cursor.close()
+        conexion.close()
+
+    except mysql.connector.Error as err:
+        print(f"❌ Error de base de datos: {err}")
+    except Exception as e:
+        print(f"❌ Error inesperado: {e}")
+
+if __name__ == "__main__":
+    login_sistema()

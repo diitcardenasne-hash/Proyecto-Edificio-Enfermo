@@ -1,0 +1,49 @@
+//MQTT Y LOS NODOS
+import paho.mqtt.client as mqtt
+import mysql.connector
+import json
+
+# --- CONFIGURACIÓN DB ---
+db_config = {
+    'host': 'localhost',
+    'user': 'Itzel04_user',
+    'password': '020404',
+    'database': 'LIAC_CA'
+}
+
+# --- CONFIGURACIÓN MQTT ---
+MQTT_BROKER = "localhost"
+MQTT_TOPIC = "aula/+/datos" 
+
+def on_connect(client, userdata, flags, rc):
+    print("✅ Conexión exitosa al Broker")
+    client.subscribe(MQTT_TOPIC)
+
+def on_message(client, userdata, msg):
+    try:
+        data = json.loads(msg.payload.decode())
+        # Extraer el nombre del nodo desde el tópico (aula/Nodo1/datos)
+        nodo = msg.topic.split('/')[1]
+        
+        conexion = mysql.connector.connect(**db_config)
+        cursor = conexion.cursor()
+        
+        query = "INSERT INTO Datos (nodo, temperatura, humedad, ppm) VALUES (%s, %s, %s, %s)"
+        valores = (nodo, data['temp'], data['hum'], data['ppm'])
+        
+        cursor.execute(query, valores)
+        conexion.commit()
+        
+        print(f"💾 Guardado de [{nodo}]: T:{data['temp']}°C, H:{data['hum']}%, PPM:{data['ppm']}")
+        
+        cursor.close()
+        conexion.close()
+    except Exception as e:
+        print(f"❌ Error: {e}")
+
+client = mqtt.Client()
+client.on_connect = on_connect
+client.on_message = on_message
+
+client.connect(MQTT_BROKER, 1883, 60)
+client.loop_forever()
