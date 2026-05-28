@@ -3,8 +3,11 @@
 Este proyecto consiste en una red de sensores (Nodos ESP32) que miden variables ambientales y las envían mediante el protocolo MQTT a una Raspberry Pi, la cual almacena la información en una base de datos MariaDB y permite la consulta selectiva mediante un sistema de usuarios.
 
 -Protocolo de Comunicación: MQTT.
+
 -Base de Datos: MariaDB (SQL).
+
 -Hardware: ESP32, Sensores MQ, DHT11/22.
+
 -Backend: Python 3.
 
 
