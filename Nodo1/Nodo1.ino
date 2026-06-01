@@ -1,11 +1,11 @@
 #include <WiFi.h>
 #include <PubSubClient.h>
 #include "DHT.h"
-
+//RELLENAR DATOS AQUI
 // --- DATOS WIFI Y MQTT ---
-const char* ssid = "Cudy-LIAC";
-const char* password = "LIAC_2026";
-const char* mqtt_server = "192.168.10.23"; // Ej: "192.168.10.23"
+const char* ssid = "";
+const char* password = "";
+const char* mqtt_server = ""; // Ej: "192.168.11.19"
 
 // --- CONFIGURACIÓN HARDWARE ---
 #define DHTPIN 4
