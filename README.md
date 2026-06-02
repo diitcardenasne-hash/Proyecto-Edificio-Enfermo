@@ -61,7 +61,7 @@ El acceso mediante la terminal está restringido por un sistema de autenticació
     Función: Reporte de valores críticos. Identifica y muestra los picos máximos (valores récord) de temperatura y PPM registrados en las últimas 24 horas para la gestión de seguridad ambiental.    
 
 
-📝 Instrucciones de Uso (SSH: sick_build) (cd progs)
+📝 Instrucciones de Uso (SSH: sick_build) (cd progs) (password: 1)
 
 1.-Asegurarse de que el servicio de Mosquitto esté corriendo en la Raspberry Pi.
 
